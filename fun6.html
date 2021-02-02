@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .page-loader {
+        position: fixed;
+        z-index: 200;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #fff;
+        display: block;
+      }
+      .page-loader .fa {
+        font-size: 2.5rem;
+      }
+      .page-loader,
+      .page-loader.visible {
+        -webkit-transition: 0.6s;
+        -ms-transition: 0.6s;
+        -moz-transition: 0.6s;
+        transition: 0.6s;
+        opacity: 1;
+        visibility: visible;
+      }
+      .page-loader.p-hidden {
+        visibility: hidden;
+        opacity: 0;
+      }
+      .lodder-gif img {
+        width: 320px;
+      }
+      .page-loader div {
+        font-family: moulinrougeflf;
+        text-align: center;
+        font-size: 20px;
+        color: #fff;
+      }
+      #loader {
+        position: relative;
+      }
+      #loader .layers {
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transition-duration: initial;
+      }
+      .layers:nth-of-type(1) {
+        background-color: #fec508;
+        z-index: 102;
+      }
+      .layers:nth-of-type(2) {
+        background-color: #f46c0f;
+        z-index: 101;
+      }
+      .layers:nth-of-type(3) {
+        background-color: #e22120;
+        z-index: 100;
+      }
+      .layers:nth-of-type(4) {
+        background-color: #00a859;
+        z-index: 99;
+      }
+      .layers:nth-of-type(5) {
+        background-color: #a9cf46;
+        z-index: 98;
+      }
+      .layers:nth-of-type(6) {
+        background-color: #28b7eb;
+        z-index: 97;
+      }
+      .layers:nth-of-type(7) {
+        background-color: #5751a2;
+        z-index: 96;
+      }
+      .layers:nth-of-type(8) {
+        background-color: #ee2897;
+        z-index: 95;
+      }
+      .layers:nth-of-type(9) {
+        background-color: #04629d;
+        z-index: 94;
+      }
+      .layers span,
+      .loaded span {
+        font: 100px/1em moulinrougeflf, "Helvetica Neue", Arial, sans-serif;
+        color: #fff;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 0.04em;
+        display: block;
+        height: 1em;
+        width: 5em;
+        margin-left: -2.5em;
+        margin-top: -0.5em;
+        left: 50%;
+        position: relative;
+      }
+
+      .loaded {
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      .loaded span {
+        color: #333;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="page-loader" id="page-loader">
+      <div id="loader">
+        <div class="layers"><span>P</span></div>
+        <div class="layers"><span>r</span></div>
+        <! <div class="layers"><span>o</span></div> -->
+    <!-- <div class="layers"><span>g</span></div>
+        <div class="layers"><span>M</span></div>
+        <div class="layers"><span>a</span></div>
+        <div class="layers"><span>m</span></div>
+        <div class="layers"><span>u</span></div>
+        <div class="layers"><span>n</span></div>
+      </div> -->
+    <!-- </div> -->
+    <div class="page-loader" id="page-loader">
+      <div id="loader">
+        <div class="layers"><span>L</span></div>
+        <div class="layers"><span>o</span></div>
+        <div class="layers"><span>a</span></div>
+        <div class="layers"><span>d</span></div>
+        <div class="layers"><span>d</span></div>
+        <div class="layers"><span>i</span></div>
+        <div class="layers"><span>n</span></div>
+        <div class="layers"><span>g</span></div>
+      </div>
+    </div>
+    <script>
+      /* Pre Loader */
+      var intervalHandle = null;
+      var intervalSpeed = 1200;
+      var slideSpeed = 1200;
+      var easeType = "easeOutQuad";
+      var state = 0;
+
+      /* get DOM beforehand because faster*/
+      var ls = $("div.layers");
+
+      /* =======
+   ready
+ ======= */
+
+      $(function () {
+        fullsize();
+        $(window).resize(function () {
+          fullsize();
+        });
+
+        intervalHandle = setInterval("step()", intervalSpeed);
+
+        /* click to fake load done */
+        $(document).click(function (e) {
+          loaded();
+        });
+      });
+
+      /* =============
+     Functions
+   ============= */
+
+      function loaded() {
+        clearInterval(intervalHandle);
+        stepEnd();
+      }
+
+      function step() {
+        var wh = $(window).height();
+
+        $(ls[state])
+          .css({ "z-index": 102 })
+          .animate({ height: 0 }, slideSpeed, easeType);
+        $(ls[(state + 2) % 9]).css({ "z-index": 100, height: wh });
+        $(ls[(state + 1) % 9]).css({ "z-index": 101 });
+
+        state++;
+        if (state == 9) {
+          state = 0;
+        }
+      }
+
+      function stepEnd() {
+        /* middle */
+        $(ls[state])
+          .css({ "z-index": 101 })
+          .delay(200)
+          .animate({ height: 0 }, slideSpeed, easeType);
+
+        /* top */
+        $(ls[(state + 2) % 9])
+          .css({ "z-index": 102 })
+          .stop()
+          .animate({ height: 0 }, slideSpeed, easeType);
+
+        /* bottom */
+        $(ls[(state + 1) % 9])
+          .css({ "z-index": 100 })
+          .delay(400)
+          .animate({ height: 0 }, slideSpeed, easeType);
+
+        state++;
+        if (state == 9) {
+          state = 0;
+        }
+      }
+
+      function fullsize() {
+        $("#loader").css("height", $(window).height());
+        $(".layers").css("width", $(window).width());
+        $(".layers span").css("top", $(window).height() / 2);
+
+        /* fake result. delete below */
+        $(".loaded").css("height", $(window).height());
+        $(".loaded span").css("top", $(window).height() / 2);
+      }
+    </script>
+  </body>
+</html>
