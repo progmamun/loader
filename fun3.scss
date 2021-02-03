@@ -1,0 +1,150 @@
+html,
+body {
+  height: 100%;
+}
+html {
+  background: linear-gradient(135deg, #3023ae 0%, #c86dd7 100%);
+  background-position: fixed;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Open Sans", "Helvetica Neue", sans-serif;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-style: normal;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga" on;
+  color: fade(#fff, 80);
+  font-size: 14px;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+}
+a {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  opacity: 0.8;
+  transition: opacity 0.15s ease-in-out;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: fade(#fff, 40);
+    left: 50%;
+    transform: translate(-50%, 300%) scale(0.95);
+    pointer-events: none;
+  }
+
+  &:hover {
+    opacity: 1;
+
+    &:after {
+      transform: translate(-50%, 150%) scale(1);
+    }
+  }
+}
+
+svg {
+  visibility: hidden;
+}
+
+.loading__wrapper {
+  width: 720px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0 0 4px 0 fade(#000, 40);
+
+  > li {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    transition: transform 0.15s ease-in-out;
+
+    &:hover {
+      transform: scale(1.15);
+      z-index: 1;
+      box-shadow: 0 0 4px 0 fade(#000, 40);
+    }
+
+    &:nth-child(1) {
+      background: #1abc9c;
+    }
+    &:nth-child(2) {
+      background: #34495e;
+    }
+    &:nth-child(3) {
+      background: #f39c12;
+    }
+    &:nth-child(4) {
+      background: #9b59b6;
+    }
+    &:nth-child(5) {
+      background: #3498db;
+    }
+    &:nth-child(6) {
+      background: #e74c3c;
+    }
+    &:nth-child(7) {
+      background: #2ecc71;
+    }
+    &:nth-child(8) {
+      background: #2c3e50;
+    }
+    &:nth-child(9) {
+      background: #f1c40f;
+    }
+    &:nth-child(10) {
+      background: #8e44ad;
+    }
+    &:nth-child(11) {
+      background: #2980b9;
+    }
+    &:nth-child(12) {
+      background: #e74c3c;
+    }
+
+    > svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+    }
+  }
+}
+
+.desc {
+  margin-top: 15px;
+}
+.loader5__front {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+}
+.loader5__back {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke-opacity: 0.5;
+}
